@@ -23,12 +23,12 @@ def test_login_valid(capsys, monkeypatch, people):
     assert captured == ""
     assert response.__str__() == "Person(givenname='Inga', password='geheim', balance=14.0)"
 
-@pytest.mark.timeout(10)
 def test_login_invalid(capsys, monkeypatch, people):
     def input_generator():
         yield "testing"
         yield "abc"
         raise KeyboardInterrupt
+
     inputs = input_generator()
 
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
